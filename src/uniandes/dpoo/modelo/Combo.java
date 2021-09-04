@@ -3,7 +3,7 @@ package uniandes.dpoo.modelo;
 import java.util.ArrayList;
 
 import uniandes.dpoo.procesamiento.Producto;
-
+//************eclipse (._.)*********************************************************************
 public class Combo implements Producto {
 	private String nombreCombo;
 	private double descuento;
