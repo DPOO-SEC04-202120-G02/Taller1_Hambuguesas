@@ -36,7 +36,7 @@ public class Restaurante {
 			for (ProductoMenu i : this.menuBase) {
 				this.menuBase_por_nombre.put(i.get_nombre(), i);
 			}
-			System.out.println("OK Se cargó el archivo " + "menu.txt" + " con información de los Combos.");
+			System.out.println("OK Se cargó el archivo " + "menu.txt" + " con información del menu principal.");
 		}
 		catch (FileNotFoundException e)
 		{
@@ -75,7 +75,7 @@ public class Restaurante {
 		try
 		{
 			this.ingredientes=LoaderInformacionArchivos.leerInfoArchivoIngredientes("./data/ingredientes.txt");
-			System.out.println("OK Se cargó el archivo " + "ingredientes.txt" + " con información de los Combos.");
+			System.out.println("OK Se cargó el archivo " + "ingredientes.txt" + " con información de los ingredientes.");
 		}
 		catch (FileNotFoundException e)
 		{

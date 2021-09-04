@@ -14,6 +14,8 @@ import uniandes.dpoo.procesamiento.LoaderInformacionArchivos;;
 
 public class Aplicacion {
 
+	private static Restaurante restaurante= new Restaurante();
+	
 	public  static String input(String mensaje)//Este metodo sirve para solicitar informacion al usuario mediante la consola.
 	{
 		try
@@ -63,11 +65,21 @@ public class Aplicacion {
 	public static void main(String[] args) throws FileNotFoundException, IOException {
 		// TODO Auto-generated method stub
 		System.out.println("Inicio de ejecución de la aplicación");
-		//Aplicacion consola = new Aplicacion();
-		Restaurante restaurante= new Restaurante();
 		boolean correr_app=true;		
 		restaurante.CargarInfomracionRestaurante();
 		MostrarMenu(restaurante);
+		while (correr_app) {
+			System.out.println("Menu de opciones:");
+			System.out.println("1.Mostrar menu"+"\t"+"2. Nuevo pedido"+"\t"+"3.Agregar elemento al pedido actual"+"\t"+"4.Cerrar pedido y guardar factura"+"\t"+"5.Consultar info de un pedido");
+			System.out.println("6. Salir de la aplicacion.");
+			try {
+				String s=input("Digite el numero de la opcion que desea seleccionar: ");
+				ejecutar_opcion(Integer.parseInt(s));
+			} catch (Exception e) {
+				System.out.println("Ingrese un valor valido.");
+			}
+		}
+		
 	}
 
 }
