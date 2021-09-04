@@ -37,7 +37,7 @@ public class Combo implements Producto {
 	public String Generar_texto_factura()
 	{
 		int precio_net=this.get_precio();
-		return "Nombre: "+this.nombreCombo+", Descuento aplicado: "+100*this.descuento+"%, Precio final: "+precio_net;
+		return "Nombre: "+this.nombreCombo+", Descuento aplicado: "+this.descuento+"%, Precio final: "+(precio_net*(1-this.descuento/100));
 	}
 	
 	public int get_precio() {/* Este es el precio antes del descuento */

@@ -1,5 +1,10 @@
 package uniandes.dpoo.modelo;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
+
+import uniandes.dpoo.procesamiento.LoaderInformacionArchivos;
 
 public class Restaurante {
 	
@@ -7,23 +12,101 @@ public class Restaurante {
 	
 	private Map<Integer, Pedido> pedidos;
 	
-	private List<Combo> combos;
+	private ArrayList<Combo> combos;
 	
-	private HashMap<String, ProductoMenu> menuBase;
+	private HashMap<String, ProductoMenu> menuBase_por_nombre;
 	
-	private List<Ingrediente> ingredientes;
+	private ArrayList<ProductoMenu> menuBase;
 	
+	private ArrayList<Ingrediente> ingredientes;
 	
-	public Restaurante(ArrayList<Combo> combos, ArrayList<ProductoMenu> menuBase, ArrayList<Ingrediente> ingredientes) {
+	public Restaurante() {
 		pedidos = new Hashtable<Integer, Pedido>();
-		this.combos = combos;
-		this.menuBase = new HashMap<String, ProductoMenu>();
-		this.ingredientes = ingredientes;
-		for (ProductoMenu i : menuBase) {
-			this.menuBase.put(i.get_nombre(), i);
-		}
+		this.combos = new ArrayList<Combo>();
+		this.menuBase_por_nombre = new HashMap<String, ProductoMenu>();
+		this.menuBase = new ArrayList<ProductoMenu>();
+		this.ingredientes = new ArrayList<Ingrediente>();
 	}
 	
+	private void CargarMenu() throws FileNotFoundException, IOException {
+		
+		try
+		{
+			this.menuBase=LoaderInformacionArchivos.leerInfoArchivoProductosMenu("./data/menu.txt");
+			for (ProductoMenu i : this.menuBase) {
+				this.menuBase_por_nombre.put(i.get_nombre(), i);
+			}
+			System.out.println("OK Se cargó el archivo " + "menu.txt" + " con información de los Combos.");
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("ERROR: el archivo " + "menu.txt" + " no se encontró.");
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e)
+		{
+			System.out.println("ERROR: hubo un problema leyendo el archivo " + "menu.txt");
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	private void CargarCombos() throws FileNotFoundException, IOException {
+		
+		try
+		{
+			combos=LoaderInformacionArchivos.leerInfoArchivoCombos("./data/combos.txt",menuBase_por_nombre);
+			System.out.println("OK Se cargó el archivo " + "combos.txt" + " con información de los Combos.");
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("ERROR: el archivo " + "combos.txt" + " no se encontró.");
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e)
+		{
+			System.out.println("ERROR: hubo un problema leyendo el archivo " + "combos.txt");
+			System.out.println(e.getMessage());
+		}
+	
+	}
+	
+	private void CargarIngredientes() throws FileNotFoundException, IOException {	
+		try
+		{
+			this.ingredientes=LoaderInformacionArchivos.leerInfoArchivoIngredientes("./data/ingredientes.txt");
+			System.out.println("OK Se cargó el archivo " + "ingredientes.txt" + " con información de los Combos.");
+		}
+		catch (FileNotFoundException e)
+		{
+			System.out.println("ERROR: el archivo " + "ingredientes.txt" + " no se encontró.");
+			System.out.println(e.getMessage());
+		}
+		catch (IOException e)
+		{
+			System.out.println("ERROR: hubo un problema leyendo el archivo " + "ingredientes.txt");
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	
+	public void CargarInfomracionRestaurante() throws FileNotFoundException, IOException {
+		this.CargarMenu();
+		this.CargarCombos();
+		this.CargarIngredientes();
+	}
+	
+	public ArrayList<ProductoMenu> getMenuBase() {
+		return this.menuBase;
+	}
+	
+	public ArrayList<Combo> getCombos() {
+		return this.combos;
+	}
+	
+	public ArrayList<Ingrediente> getIngredeintes() {
+		return this.ingredientes;
+	}
 	
 	public void iniciarPedido(String nombre, String direccionCliente) {
 		pedidoEnCurso = new Pedido(nombre, direccionCliente);
