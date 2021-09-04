@@ -9,7 +9,7 @@ public class Restaurante {
 	
 	private List<Combo> combos;
 	
-	private List<ProductoMenu> menuBase;
+	private HashMap<String, ProductoMenu> menuBase;
 	
 	private List<Ingrediente> ingredientes;
 	
@@ -17,8 +17,11 @@ public class Restaurante {
 	public Restaurante(ArrayList<Combo> combos, ArrayList<ProductoMenu> menuBase, ArrayList<Ingrediente> ingredientes) {
 		pedidos = new Hashtable<Integer, Pedido>();
 		this.combos = combos;
-		this.menuBase = menuBase;
+		this.menuBase = new HashMap<String, ProductoMenu>();
 		this.ingredientes = ingredientes;
+		for (ProductoMenu i : menuBase) {
+			this.menuBase.put(i.get_nombre(), i);
+		}
 	}
 	
 	
