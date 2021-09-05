@@ -111,10 +111,15 @@ public class Aplicacion {
 	}
 	
 	private static void crearPedido() {
-		String nombreCliente = input("Ingrese el nombre de quien pide");
-		String direccionCliente = input("Ingrese la dirección de quien pide");
-		restaurante.iniciarPedido(nombreCliente, direccionCliente);
-		System.out.println("Pedido creado exitosamente");
+		if (restaurante.getPedidoEnCurso() != null) {
+			System.out.println("No puede hacer un nuevo pedido mientras tenga uno en curso.\nPor favor cierre el actual para poder hacer uno nuevo.");
+		}
+		else {
+			String nombreCliente = input("Ingrese el nombre de quien pide");
+			String direccionCliente = input("Ingrese la dirección de quien pide");
+			restaurante.iniciarPedido(nombreCliente, direccionCliente);
+			System.out.println("Pedido creado exitosamente");
+		}
 	}
 	
 	private static void agregarProducto() {
