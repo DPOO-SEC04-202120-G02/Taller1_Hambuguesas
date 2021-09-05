@@ -5,9 +5,13 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import uniandes.dpoo.modelo.Combo;
+import uniandes.dpoo.modelo.Ingrediente;
+import uniandes.dpoo.modelo.ProductoAjustado;
 import uniandes.dpoo.modelo.ProductoMenu;
+import uniandes.dpoo.modelo.Restaurante;
 
 public class LoaderInformacionArchivos {
 
@@ -47,7 +51,7 @@ public class LoaderInformacionArchivos {
 	 * @throws FileNotFoundException
 	 * @throws IOException
 	 */
-	public static ArrayList<Combo> leerInfoArchivoCombos(String rutaArchivo, ArrayList<ProductoMenu> productosMenu) throws FileNotFoundException, IOException
+	public static ArrayList<Combo> leerInfoArchivoCombos(String rutaArchivo, HashMap<String, ProductoMenu> productosMenu) throws FileNotFoundException, IOException
 	{
 		ArrayList<Combo> combos = new ArrayList<Combo>();
 		// "Abrir" el archivo de Combos y leerlo linea por linea usando un BufferedReader
@@ -61,11 +65,11 @@ public class LoaderInformacionArchivos {
 			double porcentaje = Double.parseDouble( partes[1].substring(0, partes[1].length()-1)); // eliminar el caracter '%' y convertir el porcentaje a un valor numerico double
 
 			Combo nuevoCombo = new Combo(partes[0], porcentaje);   // creacion de un objeto Combo con su nombre y porcentaje de descuento
-
+			
 			for (int i = 2; i < partes.length; i++)
 			{
-				nuevoCombo.agregarProducto(partes[i]);    // SIMPLIFICACION: se agrega el nombre de un "productoMenu" a un combo
-				                                          // MEJORA: Buscar y agregar el ProductoMenu con el nombre en la lista productosMenu (parametro)
+				ProductoMenu prod=productosMenu.get(partes[i]);//Obtiene el producto a partir de su nombre.
+				nuevoCombo.agregarProducto(prod);    //Agrega el producto a la lista de combos. 
 			}
 
 			combos.add( nuevoCombo );
@@ -76,5 +80,24 @@ public class LoaderInformacionArchivos {
 		return combos;
 	}
 	
+	public static ArrayList<Ingrediente> leerInfoArchivoIngredientes(String rutaArchivo) throws FileNotFoundException, IOException
+	{
+		ArrayList<Ingrediente> Ingredientes = new ArrayList<Ingrediente>();
+		// "Abrir" el archivo de ProductoMenu y leerlo linea por linea usando un BufferedReader
+		BufferedReader br = new BufferedReader(new FileReader(rutaArchivo));
+		String linea = br.readLine();   // Leer la linea con el primer ProductoMenu en el archivo   
+		// Un ProductoMenu tiene la forma: nombre;precioBase
+		while (linea != null) // Cuando se llegue al final del archivo, linea tendra el valor null
+		{
+			// Separar los valores que estan en la linea por el caracter ';'
+			String[] partes = linea.split(";");
+			
+			Ingrediente nuevoIngredeinte = new Ingrediente(partes[0], Integer.parseInt(partes[1]));   // Creacion de un objeto ProductoMenu con su nombre y precio base
+			Ingredientes.add( nuevoIngredeinte );
 
+			linea = br.readLine(); // leer la proxima linea en el archivo con un nuevo ProductoMenu 
+		}
+		br.close();
+		return Ingredientes;
+	}
 }

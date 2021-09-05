@@ -1,5 +1,7 @@
 package uniandes.dpoo.modelo;
 import java.util.*;
+import uniandes.dpoo.procesamiento.Producto;
+
 
 public class Pedido {
 	private static int numeroPedidos;
@@ -10,13 +12,14 @@ public class Pedido {
 	
 	private String direccionCliente;
 	
-	private List<Producto> itemsPedido;
+	public ArrayList<Producto> itemsPedido;
 	
 	
 	public Pedido(String nombreCliente, String direccionCliente) {
 		this.nombreCliente = nombreCliente;
 		this.direccionCliente = direccionCliente;
 		itemsPedido = new ArrayList<Producto>();
+		idPedido = numeroPedidos;
 		numeroPedidos += 1;
 	}
 	
@@ -33,7 +36,7 @@ public class Pedido {
 		int precio = 0;
 		for (Producto producto : itemsPedido)
 		{
-			precio += producto.getPrecio();
+			precio += producto.get_precio();
 		}
 		return precio;
 	}
@@ -48,13 +51,14 @@ public class Pedido {
 		return precioIVA;
 	}
 	
-	private String generarTextoFactura() {
+	public String generarTextoFactura() { //debería ser private
 		String imprimible = "";
 		for (Producto producto : itemsPedido)
 		{
-			imprimible += producto.generarTextoFactura();
+			imprimible += producto.Generar_texto_factura();
 			imprimible += "\n";
 		}
+		return imprimible;
 	}
 	
 }
