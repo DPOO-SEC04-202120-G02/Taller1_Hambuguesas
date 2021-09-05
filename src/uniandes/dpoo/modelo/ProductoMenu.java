@@ -17,7 +17,7 @@ public class ProductoMenu implements Producto{
 	@Override
 	public String Generar_texto_factura()
 	{
-		return this.nombre + ": " + this.precioBase+" $";
+		return "Nombre: " + this.nombre + ", " + "Precio: $" + this.precioBase;
 	}
 	public String get_nombre(){
 		return this.nombre;

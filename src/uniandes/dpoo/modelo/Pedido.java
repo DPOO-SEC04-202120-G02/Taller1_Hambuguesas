@@ -51,7 +51,7 @@ public class Pedido {
 		return precioIVA;
 	}
 	
-	public String generarTextoFactura() { //debería ser private
+	public String generarTextoFactura() { // ajustar visibilidad
 		String imprimible = "";
 		for (Producto producto : itemsPedido)
 		{

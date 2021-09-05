@@ -10,7 +10,7 @@ public class Restaurante {
 	
 	public Pedido pedidoEnCurso;
 	
-	private Map<Integer, Pedido> pedidos;
+	public Map<Integer, Pedido> pedidos;
 	
 	private ArrayList<Combo> combos;
 	
