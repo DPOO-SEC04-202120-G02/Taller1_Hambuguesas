@@ -1,4 +1,5 @@
 package uniandes.dpoo.modelo;
+import java.io.*;
 import java.util.*;
 import uniandes.dpoo.procesamiento.Producto;
 
@@ -51,7 +52,7 @@ public class Pedido {
 		return precioIVA;
 	}
 	
-	public String generarTextoFactura() { // ajustar visibilidad
+	private String generarTextoFactura() { 
 		String imprimible = "";
 		for (Producto producto : itemsPedido)
 		{
@@ -60,6 +61,26 @@ public class Pedido {
 		}
 		return imprimible;
 	}
+	
+	public void guardarFactura() throws IOException {
+		File file = new File(idPedido + ".txt");
+		FileWriter fw = new FileWriter(file);
+		PrintWriter pw = new PrintWriter(fw);
+		
+		pw.println("--------F A C T U R A--------");
+		pw.println("Id del pedido: " + idPedido + "\nNombre del cliente: " + nombreCliente + "\nDirección del cliente: " + direccionCliente);
+		pw.println("\n\nProductos:");
+		pw.println(generarTextoFactura());
+		pw.println("\n\n");
+		pw.println("Precio Neto: " + getPrecioNetoPedido());
+		pw.println("+IVA: " + getPrecioIVAPedido());
+		pw.println("--------------------------------------------------------");
+		pw.println("Precio total: " + getPrecioTotalPedido());
+		
+	
+		
+		pw.close();
+	} 
 	
 }
 

@@ -2,10 +2,8 @@
 package uniandes.dpoo.consola;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.*;
 
 import uniandes.dpoo.modelo.Combo;
 import uniandes.dpoo.modelo.Ingrediente;
@@ -157,7 +155,7 @@ public class Aplicacion {
 		}
 	}
 	
-	private void buscarPedido() {
+	private void buscarPedido() throws IOException {
 		Integer id = Integer.parseInt(input("Digite el id del pedido que desea buscar"));
 		Pedido pedido = restaurante.pedidos.get(id);
 		if (pedido == null) {
@@ -165,13 +163,13 @@ public class Aplicacion {
 		}
 		else {
 			System.out.println("Búsqueda exitosa");
-			System.out.println("--------I N F O  D E L  P E D I D O--------");//solo prueba
-			System.out.println(pedido.generarTextoFactura());//solo prueba
+			pedido.guardarFactura();
+			System.out.println("Por favor refresque el directorio y verá su factura en el archivo " +  id);
 		}
 	}
 
 	
-	private void ejecutarOpcion(int opcionSeleccionada) {
+	private void ejecutarOpcion(int opcionSeleccionada) throws IOException {
 		if (opcionSeleccionada == 1) {
 			MostrarMenu(restaurante);
 		}
@@ -180,14 +178,10 @@ public class Aplicacion {
 		}
 		if (opcionSeleccionada == 3) {
 			agregarProducto();
-		}
-			
+		}	
 		if (opcionSeleccionada == 4) {
-			System.out.println("--------I N F O  D E L  P E D I D O--------");//solo prueba
-			System.out.println(restaurante.pedidoEnCurso.generarTextoFactura());//solo prueba
-			System.out.println("\n");//solo prueba
-			restaurante.cerrarYGuardarPedido();
-			System.out.println("El pedido se guardó existosamente");
+			System.out.println("El pedido se guardó existosamente con el id: " + String.valueOf(restaurante.getPedidoEnCurso().getIdPedido()));
+			restaurante.cerrarYGuardarPedido(); 
 		}
 		if (opcionSeleccionada == 5) {
 			buscarPedido();
