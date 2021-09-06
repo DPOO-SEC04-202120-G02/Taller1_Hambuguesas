@@ -24,7 +24,6 @@ public class Pedido {
 		numeroPedidos += 1;
 	}
 	
-	
 	public int getIdPedido() {
 		return idPedido;
 	}
@@ -43,7 +42,7 @@ public class Pedido {
 	}
 	
 	private int getPrecioNetoPedido() {
-		int precioNeto = (int) (getPrecioTotalPedido() * 0.81);
+		int precioNeto = (int) (getPrecioTotalPedido());
 		return precioNeto;
 	}
 	
@@ -75,10 +74,8 @@ public class Pedido {
 		pw.println("Precio Neto: " + getPrecioNetoPedido());
 		pw.println("+IVA: " + getPrecioIVAPedido());
 		pw.println("--------------------------------------------------------");
-		pw.println("Precio total: " + getPrecioTotalPedido());
-		
+		pw.println("Precio total: " + (getPrecioTotalPedido()+getPrecioIVAPedido()));
 	
-		
 		pw.close();
 	} 
 	

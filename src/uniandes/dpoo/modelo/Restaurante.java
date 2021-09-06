@@ -56,6 +56,7 @@ public class Restaurante {
 		return this.ingredientes;
 	}
 	
+	
 	private void CargarMenu() throws FileNotFoundException, IOException {
 		
 		try

@@ -45,6 +45,6 @@ public class Combo implements Producto {
 		for (int i = 0; i < itemsCombo.size(); i++) {
 			precio_neto+=itemsCombo.get(i).get_precio();
 		}
-		return precio_neto;
+		return (int) (precio_neto*(1-this.descuento/100));
 	}
 }
