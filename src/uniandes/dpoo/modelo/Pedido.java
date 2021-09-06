@@ -24,6 +24,19 @@ public class Pedido {
 		numeroPedidos += 1;
 	}
 	
+	public String getNombreCliente() {
+		return this.nombreCliente;
+	}
+	
+	public String getDireccionCliente() {
+		return this.direccionCliente;
+	}
+	
+	public ArrayList<Producto> getitemsPedido(){
+		return this.itemsPedido;
+	}
+		
+	
 	public int getIdPedido() {
 		return idPedido;
 	}

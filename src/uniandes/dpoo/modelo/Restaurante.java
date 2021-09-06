@@ -29,6 +29,27 @@ public class Restaurante {
 		this.ingredientes = new ArrayList<Ingrediente>();
 	}
 	
+	public boolean Comparar_pedidos(int id1, int id2) {//Retorna true si los 2 pedidos son identicos, sin considerar las ids.
+		Pedido pedido1=this.pedidos.get(id1);
+		Pedido pedido2=this.pedidos.get(id2);
+		
+		if (!pedido1.getNombreCliente().equals(pedido2.getNombreCliente())) 
+		{ 
+		  return false;
+		} 
+		else if(!pedido1.getDireccionCliente().equals(pedido2.getDireccionCliente())) 
+		{ 
+		  return false;
+		}
+		else if(!pedido2.getitemsPedido().containsAll(pedido2.getitemsPedido())) {
+		  return false;
+		}
+		else {
+			return true;
+		}
+		
+		
+	}
 	
 	public void iniciarPedido(String nombre, String direccionCliente) {
 		pedidoEnCurso = new Pedido(nombre, direccionCliente);
@@ -42,6 +63,18 @@ public class Restaurante {
 		Integer id = pedidoEnCurso.getIdPedido();
 		pedidos.put(id, pedidoEnCurso);
 		pedidoEnCurso = null;
+		boolean existe_igual=false;
+		int j=0;
+		while (!existe_igual && j<id) {
+			if(Comparar_pedidos(id, j)) {
+				existe_igual=true;
+				System.out.println("Existe un pedido igual al pedido guardado.");
+			}
+			j++;
+		}
+		if (!existe_igual) {
+			System.out.println("No existe un pedido igual al pedido guardado.");
+		}
 	}
 	
 	public ArrayList<ProductoMenu> getMenuBase() {
