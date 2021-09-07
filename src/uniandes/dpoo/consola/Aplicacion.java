@@ -164,7 +164,7 @@ public class Aplicacion {
 		else {
 			System.out.println("Búsqueda exitosa");
 			pedido.guardarFactura();
-			System.out.println("Por favor refresque el directorio y verá su factura en el archivo " +  id);
+			System.out.println("Por favor refresque el directorio y verá su factura en el archivo " +  id + ".txt");
 		}
 	}
 
@@ -180,7 +180,7 @@ public class Aplicacion {
 			agregarProducto();
 		}	
 		if (opcionSeleccionada == 4) {
-			System.out.println("El pedido se guardó existosamente con el id: " + String.valueOf(restaurante.getPedidoEnCurso().getIdPedido()));
+			System.out.println("El pedido se guardó existosamente con el id " + String.valueOf(restaurante.getPedidoEnCurso().getIdPedido()));
 			restaurante.cerrarYGuardarPedido(); 
 		}
 		if (opcionSeleccionada == 5) {
